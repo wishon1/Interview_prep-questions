@@ -14,13 +14,14 @@ def find_kth_smallest(list_of_integers, k):
     sorted_list = quick_sort(list_of_integers)
     print(sorted_list)
 
-    return sorted_list[k]
+    return sorted_list[k - 1]
+
 
 def quick_sort(array):
     """ using quick sort algorithm to sort the array"""
     if len(array) <= 1:
         return array
-    
+
     mid_point = len(array) // 2
 
     left = []
