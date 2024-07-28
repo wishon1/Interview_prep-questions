@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Write a function, connected_component_count that takes in the adjacency
-list of an undirected graph. The function should return the nimber of
-connected component withon the graph
+list of an undirected graph. The function should return the number of
+connected component which is on the graph
 """
 
 
