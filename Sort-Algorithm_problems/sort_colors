@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+from typing import List
+"""
+Sort Colors (LeetCode)
+
+Description: Given an array nums with n objects colored red, white, or blue, sort
+them in-place so that objects of the same color are adjacent, with the colors in
+the order red, white, and blue. We will use the integers 0, 1, and 2 to represent
+the color red, white, and blue, respectively.
+
+Constraint:
+n == nums.length
+1 <= n <= 300
+nums[i] is either 0, 1, or 2.
+"""
+def sort_colors(nums: List[int]) -> List[int]:
+    """sort the colors accordingly"""
+    if not nums or len(nums) == 1:
+        return nums
+    n = len(nums)
+    if 1 <= n <= 300:
+        mid_point = n // 2
+        pivot = nums[mid_point]
+        left = [x for x in nums if x < pivot]
+        middle = [x for x in nums if x == pivot]
+        right = [x for x in nums if x > pivot]
+        return sort_colors(left) + middle + sort_colors(right)
+    return nums
+
+if __name__ == "__main__":
+    nums = [2, 0, 2, 1, 1, 0]
+    print(sort_colors(nums))
+    # Expected output: [0, 0, 1, 1, 2, 2]
+
+    nums = [2, 0, 1]
+    print(sort_colors(nums))
+    # Expected output: [0, 1, 2]
