@@ -1,0 +1,64 @@
+#!/usr/bin/env python3
+"""
+Description: Given an array of intervals where intervals[i] = [start_i, end_i],
+merge all overlapping intervals, and return an array of the non-overlapping
+intervals that cover all the intervals in the input.
+Examples:
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Input: intervals = [[1,4],[4,5]]
+Output: [[1,5]]
+"""
+
+def merge_intervals(intervals):
+    """Merge overlapping intervals"""
+    if len(intervals) <= 1:
+        return intervals
+    # Step 1: Sort the intervals
+    sorted_intervals = merge_sort(intervals)
+    
+    # Step 2: Merge all overlapping intervals
+    result = [sorted_intervals[0]]
+    for interval in sorted_intervals[1:]:
+        if interval[0] <= result[-1][1]:
+            result[-1][1] = max(result[-1][1], interval[1])
+        else:
+            result.append(interval)
+    return result
+
+def merge_sort(intervals):
+    """Sorts all intervals in the array"""
+    if len(intervals) <= 1:
+        return intervals
+    # Find the mid position
+    mid_point = len(intervals) // 2
+    left_half = merge_sort(intervals[:mid_point])
+    right_half = merge_sort(intervals[mid_point:])
+    # Merge the two sorted intervals
+    return merge(left_half, right_half)
+
+def merge(left_side, right_side):
+    """Merge the two sorted intervals"""
+    result = []
+    p_left = 0
+    p_right = 0
+    while p_left < len(left_side) and p_right < len(right_side):
+        if left_side[p_left][0] <= right_side[p_right][0]:
+            result.append(left_side[p_left])
+            p_left += 1
+        else:
+            result.append(right_side[p_right])
+            p_right += 1
+    
+    # Add any remaining elements from left or right
+    result.extend(left_side[p_left:])
+    result.extend(right_side[p_right:])
+    
+    return result
+
+if __name__ == "__main__":
+    intervals = [[1, 3], [2, 6], [8, 10], [15, 18]]
+    print(merge_intervals(intervals))
+    
+    intervals = [[1, 4], [4, 5]]
+    print(merge_intervals(intervals))
